@@ -1,0 +1,261 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f9f9f9;
+  --foreground: #1a1c1c;
+  --surface: #f9f9f9;
+  --surface-low: #f3f3f3;
+  --surface-lowest: #ffffff;
+  --surface-high: #e8e8e8;
+  --surface-highest: #e2e2e2;
+  --surface-dim: #dadada;
+  --primary: #003d9b;
+  --primary-container: #0052cc;
+  --primary-fixed: #dae2ff;
+  --on-primary: #ffffff;
+  --tertiary: #004c4c;
+  --tertiary-container: #006666;
+  --on-tertiary: #ffffff;
+  --on-tertiary-container: #87e3e2;
+  --outline: #737685;
+  --outline-variant: #c3c6d6;
+  --secondary: #5e5e5e;
+  --error: #ba1a1a;
+  --transition-default: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-low: var(--surface-low);
+  --color-surface-lowest: var(--surface-lowest);
+  --color-surface-high: var(--surface-high);
+  --color-surface-highest: var(--surface-highest);
+  --color-surface-dim: var(--surface-dim);
+  --color-primary: var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-primary-fixed: var(--primary-fixed);
+  --color-on-primary: var(--on-primary);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-on-tertiary: var(--on-tertiary);
+  --color-on-tertiary-container: var(--on-tertiary-container);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+  --color-secondary: var(--secondary);
+  --color-error: var(--error);
+  --font-sans: var(--font-inter);
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--primary-fixed);
+  color: var(--primary);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+.glass {
+  background: color-mix(in srgb, var(--surface-lowest) 85%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glass-scrolled {
+  background: color-mix(in srgb, var(--surface-lowest) 92%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* Smooth section transitions via tonal layering (no borders) */
+.section-surface { background: var(--surface); }
+.section-low { background: var(--surface-low); }
+.section-dark {
+  background: var(--foreground);
+  color: var(--surface-lowest);
+}
+
+/* Premium CTA gradient */
+.cta-gradient {
+  background: linear-gradient(15deg, var(--primary), var(--primary-container));
+}
+
+/* Shimmer hover effect for CTAs */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.btn-primary {
+  background: linear-gradient(15deg, var(--primary), var(--primary-container));
+  color: var(--on-primary);
+  position: relative;
+  overflow: hidden;
+  transition: transform 200ms var(--transition-default), box-shadow 200ms var(--transition-default);
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 33%, rgba(255,255,255,0.12) 50%, transparent 66%);
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 300ms var(--transition-default);
+}
+
+.btn-primary:hover::after {
+  opacity: 1;
+  animation: shimmer 1.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 61, 155, 0.2);
+}
+
+.btn-secondary {
+  background: var(--surface-low);
+  color: var(--foreground);
+  transition: background 200ms var(--transition-default);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-high);
+}
+
+/* Ambient diffusion shadow */
+.shadow-ambient {
+  box-shadow: 0 20px 40px rgba(26, 28, 28, 0.06);
+}
+
+.shadow-ambient-lg {
+  box-shadow: 0 32px 64px rgba(26, 28, 28, 0.08);
+}
+
+/* Card hover: tonal shift, not shadow */
+.card-hover {
+  transition: background 300ms var(--transition-default), transform 300ms var(--transition-default);
+}
+
+.card-hover:hover {
+  background: var(--surface);
+  transform: translateY(-2px);
+}
+
+/* Ghost border for inputs */
+.input-ghost {
+  border: none;
+  border-bottom: 2px solid var(--surface-high);
+  background: transparent;
+  padding: 0.75rem 0;
+  width: 100%;
+  outline: none;
+  transition: border-color 200ms var(--transition-default);
+}
+
+.input-ghost:focus {
+  border-bottom-color: var(--primary);
+}
+
+/* Fade in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s var(--transition-default) both;
+}
+
+/* Staggered children */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeInUp 0.5s var(--transition-default) both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 80ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 160ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 320ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 400ms; }
+
+/* Partner logo grayscale hover */
+.partner-logo {
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter 400ms var(--transition-default), opacity 400ms var(--transition-default);
+}
+
+.partner-logo:hover {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-low);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--outline-variant);
+  border-radius: 3px;
+}
+
+/* Mega menu animation */
+@keyframes megaMenuEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mega-menu-enter {
+  animation: megaMenuEnter 200ms var(--transition-default) both;
+}
+
+/* WhatsApp floating button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 40;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+  transition: transform 200ms var(--transition-default), box-shadow 200ms var(--transition-default);
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4);
+}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="40" viewBox="0 0 220 40" fill="none">
+  <rect width="40" height="40" rx="8" fill="#003D9B"/>
+  <path d="M11 28V12H15L24 22V12H28V28H24L15 18V28H11Z" fill="white"/>
+  <text x="52" y="25" fill="#1A1C1C" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600">PT Network Data Sistem</text>
+</svg>
