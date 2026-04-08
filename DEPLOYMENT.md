@@ -19,15 +19,17 @@ Set these in Vercel project settings:
 3. Copy iframe `src`.
 4. Put value into `NEXT_PUBLIC_MAPS_EMBED_URL`.
 
-## 3) Vercel deployment (GitHub + `website/` root)
+## 3) Vercel deployment (standard GitHub import)
 
-Only the **`website/`** directory is the Next.js app. The repo may contain nothing else at the top level.
+The Next.js app is at the **repository root** (`package.json`, `src/`, etc.), so Vercel can use the default settings.
 
 1. In [Vercel](https://vercel.com), **Add New Project** → **Import** this GitHub repository.
-2. Open **Root Directory** → set it to **`website`** (required). Framework Preset should show **Next.js**.
+2. Leave **Root Directory** as **`.`** (default). Framework Preset should show **Next.js**.
 3. Set all environment variables for Production and Preview (see section 1).
 4. Deploy.
 5. Attach custom domain and configure apex + `www`.
+
+If you previously set Root Directory to `website`, change it back to **`.`** (or remove the override) and redeploy.
 
 ## 4) Sanity setup
 
