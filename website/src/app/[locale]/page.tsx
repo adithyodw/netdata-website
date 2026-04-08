@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildMetadata } from "@/lib/seo";
 import { AppLocale } from "@/i18n/routing";
 import { corePartners } from "@/lib/site";
@@ -42,6 +42,7 @@ export default async function HomePage({
   params: Promise<{ locale: AppLocale }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
 
   const specializations = [
